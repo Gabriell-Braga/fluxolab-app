@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FluxoLab · Projeto do minicurso Next.js
 
-## Getting Started
+App de referência que evolui ao longo dos **4 módulos** das slides.
 
-First, run the development server:
+## Como rodar
 
 ```bash
+cd exemplos/fluxolab-app
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy gratuito no GitHub Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O projeto suporta **export estático** (`output: 'export'`) quando a variável `GITHUB_PAGES=true` está definida.
 
-## Learn More
+### Testar build estática localmente
 
-To learn more about Next.js, take a look at the following resources:
+**PowerShell (Windows):**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```powershell
+$env:GITHUB_PAGES="true"
+$env:GITHUB_REPOSITORY="seu-usuario/fluxolab-app"
+npm run build
+npx serve out
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Linux / macOS:**
 
-## Deploy on Vercel
+```bash
+GITHUB_PAGES=true GITHUB_REPOSITORY=seu-usuario/fluxolab-app npm run build
+npx serve out
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Abra a URL do `serve` + `/fluxolab-app/` (substitua pelo nome do seu repositório).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Publicar no GitHub
+
+1. Crie um repositório público no GitHub (ex.: `fluxolab-app`).
+2. Envie o código (`git push` na branch `main`).
+3. O arquivo `.github/workflows/deploy-pages.yml` já está incluído — ele builda e publica a pasta `out/`.
+4. No repositório: **Settings → Pages → Source: GitHub Actions**.
+5. Após a Action terminar, acesse `https://seu-usuario.github.io/fluxolab-app/`.
+
+O `next.config.ts` detecta automaticamente o nome do repositório via `GITHUB_REPOSITORY` e aplica o `basePath` correto.
+
+## Checkpoints por módulo
+
+| Módulo | O que você deve ter implementado |
+|--------|----------------------------------|
+| **1** | Projeto criado · `layout.tsx` com fonte e metadata · `page.tsx` com hero textual simples |
+| **2** | Header no layout · rotas `/precos` e `/contato` · navegação com `Link` |
+| **3** | `Header` client com menu mobile · componentes `Hero`, `LogoStrip`, `FeatureCard` |
+| **4** | Dados em `lib/features.ts` · `FeatureGrid`, `CtaSection`, `Footer` · deploy no GitHub Pages |
+
+O repositório em `fluxolab-app/` contém o **estado final**. Siga os passos guiados no fim do Módulo 4 das apresentações.
+
+## Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
